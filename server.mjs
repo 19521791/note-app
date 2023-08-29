@@ -27,7 +27,6 @@ const server = new ApolloServer({
 await server.start();
 
 const authorizationJWT = async (req, res, next) => {
-    console.log({authorization: req.headers.authorization});
     const authorizationHeader = req.headers.authorization;
 
     if(authorizationHeader) {
@@ -35,7 +34,6 @@ const authorizationJWT = async (req, res, next) => {
 
         getAuth().verifyIdToken(accessToken)
         .then(decode => {
-            console.log(decode);
             res.locals.uid = decode.uid;
             next();
         })
