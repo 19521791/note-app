@@ -33,4 +33,12 @@ export const typeDefs = `#graphql
         register(uid: String!, name: String!): Author
     }
 
+    type Message {
+        message: String
+    }
+
+    type Subscription {
+        folderCreated: Message
+    }
+
 `;
