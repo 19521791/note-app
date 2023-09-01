@@ -74,6 +74,18 @@ export const resolvers = {
             await newFolder.save();
             return newFolder;
         },
+        updateFolder: async (parent, args) => {
+            const folderId = args.folderId;
+            console.log('update folder', folderId);
+            console.log('update folder', args.name);
+            const updatedFolder = await FolderModel.findByIdAndUpdate(
+                folderId,
+                { name: args.name },
+                { new: true },
+            );
+            console.log({updatedFolder});
+            return updatedFolder;
+        },
         register: async (parent, args) => {
             const foundUser = await AuthorModel.findOne({ uid: args.uid });
 
