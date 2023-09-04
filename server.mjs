@@ -19,7 +19,11 @@ const app = express();
 const httpServer = http.createServer(app);
 
 
-const DB_URL = process.env.MONGO_DB;
+const dbHost = process.env.DB_HOST || 'localhost'
+const dbPort = process.env.DB_PORT || 27017
+const dbName = process.env.DB_NAME || 'my_db_name'
+const mongoUrl = `mongodb://${dbHost}:${dbPort}/${dbName}`
+
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
@@ -75,7 +79,7 @@ app.use(cors(), authorizationJWT, bodyParser.json(), expressMiddleware(server, {
     }
 }));
 
-mongoose.connect(DB_URL, {
+mongoose.connect(mongoUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(async () => {

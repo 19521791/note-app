@@ -31,6 +31,7 @@ export const typeDefs = `#graphql
         updateNote(id: String!, content: String!): Note,
         addFolder(name: String!): Folder,
         updateFolder(folderId: ID!, name: String!): Folder,
+        deleteFolder(folderId: String!, noteId: String): Folder,
         register(uid: String!, name: String!): Author
     }
 
