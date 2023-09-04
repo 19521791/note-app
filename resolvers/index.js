@@ -76,15 +76,26 @@ export const resolvers = {
         },
         updateFolder: async (parent, args) => {
             const folderId = args.folderId;
-            console.log('update folder', folderId);
-            console.log('update folder', args.name);
             const updatedFolder = await FolderModel.findByIdAndUpdate(
                 folderId,
                 { name: args.name },
                 { new: true },
             );
-            console.log({updatedFolder});
             return updatedFolder;
+        },
+        deleteFolder: async ( parent, args ) => {
+            const folderId = args.folderId;
+            const noteId = args?.noteId;
+            try {
+                const data = await FolderModel.findByIdAndRemove(folderId);
+                if(noteId) {
+                    const data_ = await NoteModel.deleteMany({noteId});
+                } 
+
+                return data;
+            } catch (err) {
+                console.error(`Error deleting folder and notes: ${err}`);
+            }
         },
         register: async (parent, args) => {
             const foundUser = await AuthorModel.findOne({ uid: args.uid });

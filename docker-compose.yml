@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+  app:
+    image: long1100/note-app-be:v1
+    container_name: NoteTicker
+    volumes:
+      - ./:/app
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_NAME=${DB_NAME}
+      - PORT=${PORT}
+    ports:
+      - "${PORT}:${PORT}"
+    restart: unless-stopped
+    depends_on:
+      - mongo
+      # - mongo-express
+  mongo:
+    image: mongo:latest
+    container_name: mongoDB
+    volumes:
+      - ./database:/app/data
+    restart: always
+
+  # mongo-express:
+  #   image: mongo-express
+  #   restart: always
+  #   ports:
+  #     - 8081:8081
+  #   environment:
+  #     ME_CONFIG_MONGODB_ADMINUSERNAME: root
+  #     ME_CONFIG_MONGODB_ADMINPASSWORD: example
+  #     ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+
+
