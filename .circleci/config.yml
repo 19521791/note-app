@@ -58,6 +58,7 @@ workflows:
       - build
       - push:
           requires:
+            - test
             - build
           filters:
             branches:
