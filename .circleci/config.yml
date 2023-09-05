@@ -3,7 +3,7 @@ version: 2.1
 executors:
   docker-publisher:
     environment:
-      IMAGE_TAG: long1100/note-app-fe:v1
+      IMAGE_TAG: long1100/note-app-fe:latest
     docker:
       - image: docker:stable
 
@@ -14,6 +14,7 @@ jobs:
     steps:
       - checkout
       - run: echo "Running tests"
+      - run: npm install
       - run: npm run test
 
   build:
